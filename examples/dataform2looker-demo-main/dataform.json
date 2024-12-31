@@ -1,0 +1,7 @@
+{
+    "warehouse": "bigquery",
+    "defaultSchema": "dataform",
+    "assertionSchema": "dataform_assertions",
+    "defaultDatabase": "dataform2looker-demo",
+    "defaultLocation": "us-central1"
+}
