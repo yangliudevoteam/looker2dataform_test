@@ -1,0 +1,28 @@
+name: Test Federation
+
+on:
+  workflow_dispatch:
+
+env:
+  orch-project: "dataform2looker-demo"
+
+jobs:
+  CICD :
+    name: CICD checks
+    runs-on: ubuntu-latest
+
+    permissions:
+      contents: read
+      id-token: 'write'
+
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v4
+
+      - name: Authenticate to Google Cloud
+        id: auth
+        uses: google-github-actions/auth@v2
+        with:
+          project_id: '${{env.orch-project}}'
+          workload_identity_provider: 'projects/509432560350/locations/global/workloadIdentityPools/github-pool/providers/github-provider'
+          audience: audience-default
