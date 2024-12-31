@@ -22,6 +22,10 @@ jobs:
       - name: Install Dataform2Looker
         run: pip install git+https://github.com/devoteamgcloud/dataform2looker.git --force-reinstall
   
+
+      - name: Install Dataform CLI
+        run: npm install -g @dataform/cli
+        
       - name: Authenticate to Google Cloud
         id: auth
         uses: google-github-actions/auth@v2
