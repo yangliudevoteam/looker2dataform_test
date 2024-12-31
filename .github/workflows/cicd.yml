@@ -24,7 +24,9 @@ jobs:
   
 
       - name: Install Dataform CLI
-        run: npm i -g @dataform/cli@^3.0.0-beta
+        run:
+          npm i -g @dataform/cli@^3.0.0-beta
+        working-directory: examples/dataform2looker-demo-main
 
       - name: Authenticate to Google Cloud
         id: auth
@@ -36,6 +38,6 @@ jobs:
       
       - name: Compile Dataform Project
         run: |
-          cd examples/dataform2looker-demo-main
           dataform compile --json > dataform-compile.json
           ls -al  # Ensure the compiled file is generated
+        working-directory: examples/dataform2looker-demo-main
