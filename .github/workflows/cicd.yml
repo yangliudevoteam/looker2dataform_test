@@ -19,6 +19,9 @@ jobs:
       - name: Checkout Code
         uses: actions/checkout@v4
 
+      - name: Install Dataform2Looker
+        run: pip install git+https://github.com/devoteamgcloud/dataform2looker.git --force-reinstall
+  
       - name: Authenticate to Google Cloud
         id: auth
         uses: google-github-actions/auth@v2
@@ -26,3 +29,9 @@ jobs:
           project_id: '${{env.orch-project}}'
           workload_identity_provider: 'projects/509432560350/locations/global/workloadIdentityPools/github-pool/providers/github-provider'
           audience: audience-default
+      
+      - name: Compile Dataform Project
+        run: |
+          cd examples/dataform2looker-demo-main
+          dataform compile --json > dataform-compile.json
+          ls -al  # Ensure the compiled file is generated
