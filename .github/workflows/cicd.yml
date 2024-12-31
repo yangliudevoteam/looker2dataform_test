@@ -24,8 +24,8 @@ jobs:
   
 
       - name: Install Dataform CLI
-        run: npm install -g @dataform/cli
-        
+        run: npm i -g @dataform/cli@^3.0.0-beta
+
       - name: Authenticate to Google Cloud
         id: auth
         uses: google-github-actions/auth@v2
