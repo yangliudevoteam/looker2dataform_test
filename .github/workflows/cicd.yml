@@ -37,9 +37,11 @@ jobs:
           project_id: '${{env.orch-project}}'
           workload_identity_provider: 'projects/509432560350/locations/global/workloadIdentityPools/github-pool/providers/github-provider'
           audience: audience-default
-      
-      - name: 'Set up Cloud SDK'
-        uses: 'google-github-actions/setup-gcloud@v2'
+
+      - name: Find the Google Cloud credential file
+        run: |
+          CREDENTIAL_FILE=$(ls $GITHUB_WORKSPACE | grep -E '.*json$')
+          echo "GOOGLE_APPLICATION_CREDENTIALS=$GITHUB_WORKSPACE/$CREDENTIAL_FILE" >> $GITHUB_ENV
       
       - name: Clone dataform2looker-demo and compile dataform json file
         run: |
@@ -47,7 +49,7 @@ jobs:
           cd demo-project
           dataform install
           dataform compile --json > output.json
-
+    
       - name: Run dataform2looker taking output.json as input
         run: |
          cd demo-project
