@@ -41,10 +41,11 @@ jobs:
       
       - name: 'Set up Cloud SDK'
         uses: 'google-github-actions/setup-gcloud@v2'
-        
+
       - name: test table existence
         run: |
-          gcloud bigquery tables describe data__datamart.airport_metrics --project=dataform2looker-demo
+          bq show data__datamart.airport_metrics
+
 
         
       - name: Clone dataform2looker-demo and compile dataform json file
