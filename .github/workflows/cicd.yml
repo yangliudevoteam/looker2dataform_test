@@ -43,9 +43,7 @@ jobs:
           git clone https://github.com/AKyrloglou-Devoteam/dataform2looker-demo.git demo-project
           cd demo-project
           dataform install
+          dataform compile --json > output.json
 
-      - name: Compile and Test
-        run: |
-          cd demo-project
-          df2looker --source-file-path ./dataform-compile.json --target-dir ./views --verbose
-          ls ./views
+
+          
