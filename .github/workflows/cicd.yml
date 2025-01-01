@@ -56,6 +56,7 @@ jobs:
       - name: Run dataform2looker taking output.json as input
         run: |
          ls
+         echo "here"
          cd demo-project
          ls
          mkdir -p views
