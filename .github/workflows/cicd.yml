@@ -53,7 +53,8 @@ jobs:
             exit 1
           fi
           echo "Credential file found: $CREDENTIAL_FILE"
-          cp "$GITHUB_WORKSPACE/$CREDENTIAL_FILE" demo-project/
+          mv "$GITHUB_WORKSPACE/$CREDENTIAL_FILE" "$GITHUB_WORKSPACE/.df-credentials.json"
+          cp "$GITHUB_WORKSPACE/.df-credentials.json" demo-project/
     
       - name: Run dataform2looker taking output.json as input
         run: |
