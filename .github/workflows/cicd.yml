@@ -5,7 +5,7 @@ on:
 
 env:
   orch-project: "dataform2looker-demo"
-  dataform-repo: "https://github.com/AKyrloglou-Devoteam/dataform2looker-demo.git"
+  dataform-repo: "https://github.com/yangliudevoteam/copy_alex.git"
 
 jobs:
   CICD :
@@ -40,7 +40,7 @@ jobs:
       
       - name: Clone dataform2looker-demo
         run: |
-          git clone https://github.com/AKyrloglou-Devoteam/dataform2looker-demo.git demo-project
+          git clone ${{env.dataform-repo}} demo-project
           cd demo-project
           dataform install
           dataform compile --json > output.json
