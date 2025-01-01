@@ -38,7 +38,7 @@ jobs:
           workload_identity_provider: 'projects/509432560350/locations/global/workloadIdentityPools/github-pool/providers/github-provider'
           audience: audience-default
 
-      - name: Locate and Set Credential File
+      - name: Locate and Copy Credential File
         run: |
           CREDENTIAL_FILE=$(ls $GITHUB_WORKSPACE | grep -E '.*\.json$')
           if [ -z "$CREDENTIAL_FILE" ]; then
@@ -46,7 +46,7 @@ jobs:
             exit 1
           fi
           echo "Credential file found: $CREDENTIAL_FILE"
-          echo "GOOGLE_APPLICATION_CREDENTIALS=$GITHUB_WORKSPACE/$CREDENTIAL_FILE" >> $GITHUB_ENV
+          cp "$GITHUB_WORKSPACE/$CREDENTIAL_FILE" demo-project/
         
       - name: Clone dataform2looker-demo and compile dataform json file
         run: |
@@ -56,8 +56,6 @@ jobs:
           dataform compile --json > output.json
     
       - name: Run dataform2looker taking output.json as input
-        env:
-          GOOGLE_APPLICATION_CREDENTIALS: ${{ env.GOOGLE_APPLICATION_CREDENTIALS }}
         run: |
          cd demo-project
          ls
