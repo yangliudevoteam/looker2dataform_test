@@ -24,12 +24,9 @@ jobs:
         run: |
           pip install git+https://github.com/devoteamgcloud/dataform2looker.git --force-reinstall
   
-
       - name: Install Dataform CLI
         run:
           npm i -g @dataform/cli@^3.0.0-beta
-        # working-directory: examples/dataform2looker-demo-main
-        
 
       - name: Authenticate to Google Cloud
         id: auth
@@ -39,8 +36,8 @@ jobs:
           workload_identity_provider: 'projects/509432560350/locations/global/workloadIdentityPools/github-pool/providers/github-provider'
           audience: audience-default
       
-      - name: 'Set up Cloud SDK'
-        uses: 'google-github-actions/setup-gcloud@v2'
+      # - name: 'Set up Cloud SDK'
+      #   uses: 'google-github-actions/setup-gcloud@v2'
 
       - name: test table existence
         run: |
@@ -62,6 +59,17 @@ jobs:
          ls
          mkdir -p views
          df2looker --source-file-path output.json --target-dir views
+
+         # Check for differences
+          echo "Comparing generated views with local views..."
+          if diff -qr views local_views; then
+              echo "No differences found between views and local_views."
+          else
+              echo "Differences found between views and local_views. Details:"
+              diff -r views local_views
+              # You can also write this output to a log file
+              # diff -r views local_views > differences.log
+          fi
 
 
 
