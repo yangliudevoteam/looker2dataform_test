@@ -38,12 +38,18 @@ jobs:
           workload_identity_provider: 'projects/509432560350/locations/global/workloadIdentityPools/github-pool/providers/github-provider'
           audience: audience-default
       
-      - name: Clone dataform2looker-demo
+      - name: Clone dataform2looker-demo and compile dataform json file
         run: |
           git clone ${{env.dataform-repo}} demo-project
           cd demo-project
           dataform install
           dataform compile --json > output.json
+
+      - name: Run dataform2looker taking output.json as input
+        run: |
+         ls
+         df2looker --source-file-path output.json --target-dir views
+
 
 
           
