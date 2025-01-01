@@ -44,6 +44,7 @@ jobs:
 
       - name: test table existence
         run: |
+          gcloud auth list
           bq show data__datamart.airport_metrics
 
 
