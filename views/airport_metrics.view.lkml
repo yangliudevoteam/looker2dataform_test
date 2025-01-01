@@ -15,7 +15,7 @@ view: airport_metrics {
 
   dimension: small_airport_count {
     type: number
-    description: ""
+    description: "aadad"
     sql: {TABLE}.small_airport_count ;;
   }
 
