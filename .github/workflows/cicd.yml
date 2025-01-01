@@ -42,7 +42,7 @@ jobs:
         run: |
           git clone https://github.com/AKyrloglou-Devoteam/dataform2looker-demo.git demo-project
           cd demo-project
-          poetry install
+          dataform install
 
       - name: Compile and Test
         run: |
