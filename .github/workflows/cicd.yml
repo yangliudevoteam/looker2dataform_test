@@ -60,6 +60,7 @@ jobs:
         run: |
          cd demo-project
          ls
+         mkdir -p views
          df2looker --source-file-path output.json --target-dir views
 
 
