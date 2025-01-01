@@ -5,6 +5,7 @@ on:
 
 env:
   orch-project: "dataform2looker-demo"
+  dataform-repo: "https://github.com/AKyrloglou-Devoteam/dataform2looker-demo.git"
 
 jobs:
   CICD :
@@ -21,14 +22,13 @@ jobs:
 
       - name: Install Dataform2Looker 
         run: |
-          ls
           pip install git+https://github.com/devoteamgcloud/dataform2looker.git --force-reinstall
   
 
       - name: Install Dataform CLI
         run:
           npm i -g @dataform/cli@^3.0.0-beta
-        working-directory: examples/dataform2looker-demo-main
+        # working-directory: examples/dataform2looker-demo-main
 
       - name: Authenticate to Google Cloud
         id: auth
@@ -38,8 +38,14 @@ jobs:
           workload_identity_provider: 'projects/509432560350/locations/global/workloadIdentityPools/github-pool/providers/github-provider'
           audience: audience-default
       
-      - name: Compile Dataform Project
+      - name: Clone dataform2looker-demo
         run: |
-          dataform compile --json > dataform-compile.json
-          ls -al  # Ensure the compiled file is generated
-        working-directory: examples/dataform2looker-demo-main
+          git clone https://github.com/AKyrloglou-Devoteam/dataform2looker-demo.git demo-project
+          cd demo-project
+          poetry install
+
+      - name: Compile and Test
+        run: |
+          cd demo-project
+          df2looker --source-file-path ./dataform-compile.json --target-dir ./views --verbose
+          ls ./views
