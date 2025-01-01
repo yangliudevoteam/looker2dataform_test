@@ -62,7 +62,29 @@ jobs:
          mkdir -p views
          df2looker --source-file-path output.json --target-dir views
 
+      - name: Compare folders
+        run: |
+         ls
+          # Define folder paths
+          FOLDER1="views"
+          FOLDER2="demo-project/views"
 
+          echo "Comparing $FOLDER1 with $FOLDER2..."
+
+          # Run diff command
+          diff -r "$FOLDER1" "$FOLDER2" || true
+
+          # If differences are found, output to a file
+          DIFF_OUTPUT="differences.txt"
+          diff -r "$FOLDER1" "$FOLDER2" > "$DIFF_OUTPUT" || true
+
+          # Check if the differences file exists and print its content
+          if [ -s "$DIFF_OUTPUT" ]; then
+            echo "Differences found:"
+            cat "$DIFF_OUTPUT"
+          else
+            echo "No differences found."
+          fi
 
 
 
