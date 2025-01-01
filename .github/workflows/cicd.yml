@@ -19,8 +19,10 @@ jobs:
       - name: Checkout Code
         uses: actions/checkout@v4
 
-      - name: Install Dataform2Looker
-        run: pip install git+https://github.com/devoteamgcloud/dataform2looker.git --force-reinstall
+      - name: Install Dataform2Looker 
+        run: |
+          ls
+          pip install git+https://github.com/devoteamgcloud/dataform2looker.git --force-reinstall
   
 
       - name: Install Dataform CLI
