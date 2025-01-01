@@ -47,6 +47,7 @@ jobs:
 
       - name: Run dataform2looker taking output.json as input
         run: |
+         cd demo-project
          ls
          df2looker --source-file-path output.json --target-dir views
 
